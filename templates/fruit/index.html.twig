@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'fruit_search' %}
+
+{% block main %}
+    {{ component('fruit_search', {
+        query: query,
+        family: family,
+        favorite: favorite
+    }) }}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}

@@ -1,0 +1,31 @@
+<tr class="fruit">
+    <td>{{ post.id }}</td>
+    <td>{{ post.name }}</td>
+    <td>{{ post.family }}</td>
+    <td>{{ post.genus }}</td>
+    <td>{{ post.plantOrder }}</td>
+    {% if favorite %}
+        <td>{{ ((post.calories + post.carbohydrates + post.fat + post.protein + post.sugar)/100)|number_format(2) }}</td>
+    {% endif %}
+    <td class="text-right">
+        <div class="item-actions">
+            {% if post.likeUsers|length %}
+                <form action="{{ url('fruit_unlike', {id: post.id}) }}" method="post" data-confirmation="true" id="delete-form">
+                    <input type="hidden" name="token" value="{{ csrf_token('unlike') }}" />
+                    <input type="hidden" name="backTo" value="{{ favorite? 'fruit_favorite': 'fruit_index' }}" />
+                    <button type="submit" class="btn btn-sm btn-warning">
+                        Remove from favorite
+                    </button>
+                </form>
+            {% else %}
+                <form action="{{ url('fruit_like', {id: post.id}) }}" method="post" data-confirmation="true" id="delete-form">
+                    <input type="hidden" name="token" value="{{ csrf_token('like') }}" />
+                    <input type="hidden" name="backTo" value="{{ favorite? 'fruit_favorite': 'fruit_index' }}" />
+                    <button type="submit" class="btn btn-sm btn-success">
+                        Add to favorite
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </td>
+</tr>
